@@ -1,0 +1,7 @@
+{
+  "alias": "Fictional automation",
+  "trigger": [{ "platform": "state", "entity_id": "light.fictional_hall" }],
+  "condition": [],
+  "action": [{ "service": "light.turn_on", "target": { "entity_id": "light.fictional_hall" } }],
+  "token": "CANARY_AUTOMATION_1234"
+}

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
+<meta name="description" content="OfflineReadiness — read-only Home Assistant dependency evidence report from selected registry metadata. No server, no network, no telemetry.">
+<title>OfflineReadiness — experimental concept prototype</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-head">
+  <div>
+    <p class="eyebrow">Offline evidence tool</p>
+    <h1>OfflineReadiness</h1>
+    <p id="prototype-notice" class="tagline" role="note"><strong>Experimental concept prototype — idea exploration only.</strong> This is a work-in-progress demo, not a finished or production-ready product.</p>
+    <p class="tagline">Map your Home Assistant registry exports to dated integration classification evidence — a read-only dependency board, not an offline-safe certification.</p>
+  </div>
+  <div class="head-side">
+    <span class="badge" title="This page makes no network requests."><span class="dot" aria-hidden="true"></span>Offline · no network</span>
+    <span class="badge warn-badge">Evidence report · no score</span>
+  </div>
+</header>
+
+<main class="layout">
+
+  <!-- 01 · Import ---------------------------------------------------------- -->
+  <section class="panel" id="import-panel" aria-labelledby="import-h">
+    <h2 id="import-h"><span class="step">01</span>Import registry metadata</h2>
+    <div class="field-row">
+      <input class="sr-only" type="file" id="file-input" data-testid="file-input" accept=".json,.txt,application/json,text/plain" multiple>
+      <label class="btn" id="file-label" for="file-input">Choose JSON files…</label>
+      <button type="button" class="btn primary" id="btn-load-sample" data-testid="load-sample">Load fictional sample</button>
+      <span class="hint" id="source-kind" data-testid="source-kind">No import yet.</span>
+    </div>
+    <p class="status" id="status-line" data-testid="status-line" role="status" aria-live="polite">Load the fictional sample, or choose the .storage exports (core.config_entries, core.entity_registry, core.device_registry) in one multi-file selection, or a normalized snapshot JSON.</p>
+    <p class="error" id="error-line" data-testid="error-line" role="alert" hidden></p>
+    <p class="hint" id="sample-note">The built-in sample is fictional, synthetic demo data — not from a real home. Files never leave this machine; nothing is stored in the browser.</p>
+  </section>
+
+  <!-- 02 · Board ----------------------------------------------------------- -->
+  <section class="panel" id="board-panel" aria-labelledby="board-h" hidden>
+    <h2 id="board-h"><span class="step">02</span>Dependency board</h2>
+
+    <div class="stats" id="stats" data-testid="stats" aria-label="Record counts">
+      <div class="stat"><span class="stat-num" id="stat-entries">0</span><span class="stat-label">Entries</span></div>
+      <div class="stat"><span class="stat-num" id="stat-entities">0</span><span class="stat-label">Entities</span></div>
+      <div class="stat"><span class="stat-num" id="stat-devices">0</span><span class="stat-label">Devices</span></div>
+      <div class="stat cat-local"><span class="stat-num" id="stat-local">0</span><span class="stat-label">Local</span></div>
+      <div class="stat cat-cloud"><span class="stat-num" id="stat-cloud">0</span><span class="stat-label">Cloud</span></div>
+      <div class="stat cat-unknown"><span class="stat-num" id="stat-unknown">0</span><span class="stat-label">Unknown</span></div>
+      <div class="stat cat-custom"><span class="stat-num" id="stat-custom">0</span><span class="stat-label">Custom / unlisted</span></div>
+      <div class="stat cat-issues"><span class="stat-num" id="stat-issues">0</span><span class="stat-label">Issues</span></div>
+    </div>
+
+    <div class="toolbar">
+      <div class="chips" role="group" aria-label="Filter by category">
+        <button type="button" class="chip" id="chip-all" data-category="all" aria-pressed="true">All</button>
+        <button type="button" class="chip cat-local" id="chip-local" data-category="local" aria-pressed="false">Local</button>
+        <button type="button" class="chip cat-cloud" id="chip-cloud" data-category="cloud" aria-pressed="false">Cloud</button>
+        <button type="button" class="chip cat-unknown" id="chip-unknown" data-category="unknown" aria-pressed="false">Unknown</button>
+        <button type="button" class="chip cat-custom" id="chip-custom" data-category="custom" aria-pressed="false">Custom / unlisted</button>
+      </div>
+      <div class="field toolbar-field">
+        <label for="search-input" class="sr-only">Search entries, devices and entities</label>
+        <input type="search" id="search-input" data-testid="search-input" maxlength="120" placeholder="Search domain, name, manufacturer…">
+      </div>
+      <label class="channel" for="issues-only"><input type="checkbox" id="issues-only" data-testid="issues-only"> <span>Groups with entry, entity or device warnings</span></label>
+    </div>
+    <p class="meta" id="filter-status" data-testid="filter-status" aria-live="polite"></p>
+
+    <div class="workspace">
+      <div class="board" id="board" data-testid="board" aria-label="Dependency board"></div>
+      <aside class="detail" id="detail-pane" data-testid="detail-pane" aria-labelledby="detail-title" hidden>
+        <div class="detail-head">
+          <h3 id="detail-title">Details</h3>
+          <button type="button" class="btn small" id="btn-detail-close" data-testid="detail-close">Close (Esc)</button>
+        </div>
+        <div id="detail-body"></div>
+      </aside>
+    </div>
+    <p class="hint">Category chips filter entry cards. Unlinked entities and unattributed devices are graph-level cards and stay visible in every view. “Local” means the integration’s own communication is declared local — not that the device works without internet. Card issue counts are entry-level (the entry record itself); the warnings-only filter also keeps a group when its entities or devices carry warnings — every issue is listed in section 03.</p>
+  </section>
+
+  <!-- 03 · Issues ---------------------------------------------------------- -->
+  <section class="panel" id="issues-panel" aria-labelledby="issues-h" hidden>
+    <h2 id="issues-h"><span class="step">03</span>Reference &amp; import issues</h2>
+    <p class="meta" id="issues-count" data-testid="issues-count"></p>
+    <div class="table-scroll">
+      <table class="issues-table">
+        <caption>Orphan, ambiguous, duplicate and rejected records found while building the board. Detail text never includes discarded credential fields.</caption>
+        <thead>
+          <tr><th scope="col">Code</th><th scope="col">Severity</th><th scope="col">Subject</th><th scope="col">Detail</th></tr>
+        </thead>
+        <tbody id="issues-list" data-testid="issues-list"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 04 · Evidence -------------------------------------------------------- -->
+  <section class="panel" id="evidence-panel" aria-labelledby="evidence-h" hidden>
+    <h2 id="evidence-h"><span class="step">04</span>Classification evidence</h2>
+    <p class="meta" id="evidence-count" data-testid="evidence-count"></p>
+    <div class="table-scroll">
+      <table class="evidence-table">
+        <caption>Dated, cited evidence for every domain used by this import. Manifest iot_class describes the integration’s declared communication model — not verified device runtime behavior.</caption>
+        <thead>
+          <tr><th scope="col">Domain</th><th scope="col">iot_class</th><th scope="col">Category</th><th scope="col">Retrieved</th><th scope="col">Stale</th><th scope="col">Source</th></tr>
+        </thead>
+        <tbody id="evidence-list" data-testid="evidence-list"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 05 · Download -------------------------------------------------------- -->
+  <section class="panel" id="download-panel" aria-labelledby="download-h" hidden>
+    <h2 id="download-h"><span class="step">05</span>Download the report</h2>
+    <div class="field-row">
+      <label class="channel" for="optin-identifiers"><input type="checkbox" id="optin-identifiers" data-testid="optin-identifiers"> <span>Include original names and identifiers</span></label>
+      <button type="button" class="btn primary" id="btn-download-json" data-testid="download-json">Download JSON report</button>
+      <button type="button" class="btn" id="btn-download-html" data-testid="download-html">Download HTML report</button>
+    </div>
+    <p class="hint" id="download-note">Reports are redacted by default: names and identifiers are ordinalized (Entry C01, Entity E01, Device D01) and arbitrary source labels are omitted. Known Home Assistant source enums (user, discovery, …) and device manufacturer/model remain as product/acquisition metadata — review them before sharing. The opt-in includes the original names and identifiers from the normalized state — never secrets: credential-bearing config entry data/options and device connection/serial/URL fields are discarded at import and can never appear in any report.</p>
+  </section>
+
+  <details class="about">
+    <summary>Supported inputs, limits &amp; honest limitations</summary>
+    <h3>Supported input</h3>
+    <ul>
+      <li><strong>Normalized snapshot</strong> — one JSON file with schema <code>offline-readiness.snapshot/1</code>: <code>haVersion</code> plus allowlisted <code>entries</code>, <code>entities</code> and <code>devices</code> arrays (see <code>docs/snapshot-contract.md</code>).</li>
+      <li><strong>Registry bundle</strong> — the three Home Assistant <code>.storage</code> exports selected together in one multi-file pick: <code>core.config_entries</code>, <code>core.entity_registry</code>, <code>core.device_registry</code>. <code>config_entries</code> and <code>entity_registry</code> are always required; the device registry is required when entities reference devices. New single <code>config_entry_id</code> devices and legacy <code>config_entries</code> arrays are both accepted. A valid export may contain zero records (a fresh home) and still join; only an import whose exports together hold no records at all is refused with <code>EMPTY_INPUT</code>.</li>
+      <li>Allowlisted fields only. Config entry <code>data</code>/<code>options</code>/<code>subentries</code>, device <code>connections</code>/<code>serial_number</code>/<code>configuration_url</code>/<code>identifiers</code>, entity <code>unique_id</code>/<code>capabilities</code>/<code>labels</code> and all unknown fields are discarded before state creation — counts are shown, values never survive.</li>
+    </ul>
+    <h3>Not supported (explicit errors, never guessed)</h3>
+    <ul>
+      <li>Full or encrypted Home Assistant backups, archives (<code>.zip</code>, <code>.tar</code>, <code>.gz</code>), YAML files (<code>configuration.yaml</code>, <code>automations.yaml</code>) and automations/scripts.</li>
+      <li>Dynamic templates and template entities are never evaluated; template/group platforms are reported as unknown with an explicit dynamic-platform note.</li>
+      <li>Nothing is fetched from Home Assistant: no server, no supervisor, no live state.</li>
+    </ul>
+    <h3>Limits</h3>
+    <ul>
+      <li>8&nbsp;MiB per file, 8 files per import; 5,000 entries / 20,000 entities / 10,000 devices (fail closed with a visible error).</li>
+      <li>Display strings are capped at 200 characters (truncations are counted); devices keep at most 32 config-entry references; at most 500 issues are listed while totals stay complete.</li>
+      <li>Bundled classification evidence is dated <strong>2026-10-11</strong> (home-assistant/core tag 2026.10.1); evidence older than 180 days is flagged stale.</li>
+    </ul>
+    <h3>Honest limitations</h3>
+    <ul>
+      <li>This is a dependency <em>evidence</em> report, not a whole-house offline-safe certification, and there is no aggregate score.</li>
+      <li>“Local” is the integration’s declared communication model; firmware updates, companion apps, accounts and cloud features are out of scope.</li>
+      <li>MQTT entities talk to a user-configured broker whose locality cannot be verified here, so MQTT is reported as unknown.</li>
+      <li>Domains outside the bundled evidence set are reported as custom/unlisted — never assumed local.</li>
+      <li>Bundled evidence is tied to the dated tag above; the imported Home Assistant version is displayed for context and never compared against it — a version mismatch is not automatically flagged.</li>
+      <li>Registry <code>version</code>/<code>minor_version</code> fields are tolerated, not certified: the adapters match on key/shape, and the versions listed in the contract describe the live storage format only.</li>
+      <li>Classification is a domain-name lookup against the named core manifests. A custom integration that shadows a bundled domain (for example a custom “hue” fork) still shows the bundled evidence — installed code is never inspected.</li>
+      <li>Device <code>via</code> references are direct links only; cycles are not detected and references are not resolved transitively.</li>
+      <li>Device manufacturer/model and known source enums stay in redacted reports as product/acquisition metadata — review them before sharing.</li>
+      <li>Physical device behavior and runtime offline operation were not tested.</li>
+      <li>Licensed under MIT; see the LICENSE file included with this application.</li>
+    </ul>
+  </details>
+
+</main>
+
+<footer class="site-foot">
+  <p>OfflineReadiness runs entirely in this page — no server, no CDN, no telemetry, no browser storage. Works from a plain <code>file://</code> open.</p>
+</footer>
+
+<noscript><p class="site-foot">OfflineReadiness needs JavaScript enabled to build the board locally.</p></noscript>
+
+<script src="data/classifications.js"></script>
+<script src="fixtures/fictional-sample.js"></script>
+<script src="core.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

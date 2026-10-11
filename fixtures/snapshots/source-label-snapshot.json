@@ -1,0 +1,10 @@
+{
+  "schema": "offline-readiness.snapshot/1",
+  "haVersion": "2026.10.1",
+  "entries": [
+    { "entryId": "01JSRC000000000000000001", "domain": "hue", "title": "Fictional known-source entry", "source": "user" },
+    { "entryId": "01JSRC000000000000000002", "domain": "esphome", "title": "Fictional labeled-source entry", "source": "fiction_private_source_label" }
+  ],
+  "entities": [],
+  "devices": []
+}

@@ -1,0 +1,24 @@
+{
+  "schema": "offline-readiness.snapshot/1",
+  "haVersion": "2026.9.2-fictional",
+  "entries": [
+    { "entryId": "01JDUP000000000000000001", "domain": "hue", "title": "Dup fixture hue" },
+    { "entryId": "01JDUP000000000000000001", "domain": "esphome", "title": "Duplicate entry id" },
+    { "entryId": "01JDUP000000000000000003", "domain": "wled", "title": "Dangling wled" },
+    { "entryId": "01JDUP000000000000000004", "domain": "input_boolean", "title": "Missing iot_class case" }
+  ],
+  "entities": [
+    { "entityId": "light.dup_a", "platform": "hue", "configEntryId": "01JDUP000000000000000001", "deviceId": "dupdev0001", "originalName": "Dup entity one" },
+    { "entityId": "light.dup_a", "platform": "hue", "configEntryId": "01JDUP000000000000000001", "deviceId": "dupdev0001", "originalName": "Dup entity two" },
+    { "entityId": "sensor.mismatch_dup", "platform": "tuya", "configEntryId": "01JDUP000000000000000001", "deviceId": null, "originalName": "Mismatched platform entity" },
+    { "entityId": "sensor.orphan_entry", "platform": "hue", "configEntryId": "01JDUP00000000000000NOPE", "deviceId": null, "originalName": "Orphan entry ref" },
+    { "entityId": "sensor.orphan_device", "platform": "hue", "configEntryId": "01JDUP000000000000000001", "deviceId": "dupdevNOPE", "originalName": "Orphan device ref" },
+    { "entityId": "sensor.unlinked_dup", "platform": "esphome", "configEntryId": null, "deviceId": null, "originalName": "Unlinked in dup fixture" }
+  ],
+  "devices": [
+    { "deviceId": "dupdev0001", "configEntries": ["01JDUP000000000000000001"], "manufacturer": "Fictional", "model": "Dup device" },
+    { "deviceId": "dupdev0001", "configEntries": ["01JDUP000000000000000001"], "manufacturer": "Fictional", "model": "Duplicate device id" },
+    { "deviceId": "dupdev0003", "configEntries": ["01JDUP000000000000000001", "01JDUP00000000000000NOPE"], "manufacturer": "Fictional", "model": "Two refs one missing" },
+    { "deviceId": "dupdev0004", "configEntries": ["01JDUP000000000000000001"], "manufacturer": "Fictional", "model": "Via missing", "viaDeviceId": "dupdevNOPE" }
+  ]
+}

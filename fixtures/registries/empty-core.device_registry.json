@@ -1,0 +1,8 @@
+{
+  "version": 3,
+  "minor_version": 4,
+  "key": "core.device_registry",
+  "data": {
+    "devices": []
+  }
+}

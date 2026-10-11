@@ -1,0 +1,40 @@
+{
+  "schema": "offline-readiness.snapshot/1",
+  "haVersion": "2026.9.2-fictional",
+  "entries": [
+    {
+      "entryId": "01JCAN00000000000000000001",
+      "domain": "hue",
+      "title": "Canary entry",
+      "data": { "token": "CANARY_SNAP_ENTRY_DATA_1a2b" },
+      "options": { "token": "CANARY_SNAP_ENTRY_OPTIONS_3c4d" },
+      "unique_id": "CANARY_SNAP_ENTRY_UID_5e6f"
+    },
+    { "entryId": "01JCAN00000000000000000002", "domain": "esphome", "title": "Clean entry" }
+  ],
+  "entities": [
+    {
+      "entityId": "light.canary_entity",
+      "platform": "hue",
+      "configEntryId": "01JCAN00000000000000000001",
+      "deviceId": "fictcandev0001",
+      "originalName": "Canary entity",
+      "unique_id": "CANARY_SNAP_ENTITY_UID_7a8b",
+      "capabilities": { "token": "CANARY_SNAP_ENTITY_CAP_9c0d" }
+    },
+    { "entityId": "sensor.clean_entity", "platform": "esphome", "configEntryId": "01JCAN00000000000000000002", "originalName": "Clean entity" }
+  ],
+  "devices": [
+    {
+      "deviceId": "fictcandev0001",
+      "configEntries": ["01JCAN00000000000000000001"],
+      "manufacturer": "Fictional",
+      "model": "Canary device",
+      "connections": [["mac", "CANARY_SNAP_DEVICE_MAC_1e2f"]],
+      "serial_number": "CANARY_SNAP_DEVICE_SERIAL_3a4b",
+      "configuration_url": "http://user:CANARY_SNAP_DEVICE_URL_5c6d@192.0.2.40/",
+      "nested": { "deep": { "token": "CANARY_SNAP_DEVICE_NESTED_7e8f" } }
+    }
+  ],
+  "extraTopLevel": { "token": "CANARY_SNAP_TOPLEVEL_9a0b" }
+}

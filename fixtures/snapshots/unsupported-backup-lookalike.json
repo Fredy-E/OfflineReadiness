@@ -1,0 +1,6 @@
+{
+  "home_assistant": { "version": "2026.10.1", "uuid": "fictional-instance" },
+  "backups": [
+    { "slug": "fictional-backup", "name": "Fictional encrypted backup", "compressed": true, "data": "CANARY_BACKUP_BLOB_0000" }
+  ]
+}

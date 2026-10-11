@@ -1,0 +1,17 @@
+{
+  "schema": "offline-readiness.snapshot/1",
+  "haVersion": "racing-a",
+  "entries": [
+    { "entryId": "01JRACE0000000000000000A1", "domain": "hue", "title": "Racing A hue" },
+    { "entryId": "01JRACE0000000000000000A2", "domain": "esphome", "title": "Racing A esphome" },
+    { "entryId": "01JRACE0000000000000000A3", "domain": "tuya", "title": "Racing A tuya" }
+  ],
+  "entities": [
+    { "entityId": "light.racing_a_one", "platform": "hue", "configEntryId": "01JRACE0000000000000000A1", "deviceId": "racedevA1" },
+    { "entityId": "sensor.racing_a_two", "platform": "esphome", "configEntryId": "01JRACE0000000000000000A2", "deviceId": null },
+    { "entityId": "light.racing_a_three", "platform": "tuya", "configEntryId": "01JRACE0000000000000000A3", "deviceId": null }
+  ],
+  "devices": [
+    { "deviceId": "racedevA1", "configEntries": ["01JRACE0000000000000000A1"], "manufacturer": "Fictional", "model": "Racing A device" }
+  ]
+}

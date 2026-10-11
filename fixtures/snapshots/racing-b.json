@@ -1,0 +1,23 @@
+{
+  "schema": "offline-readiness.snapshot/1",
+  "haVersion": "racing-b",
+  "entries": [
+    { "entryId": "01JRACE0000000000000000B1", "domain": "hue", "title": "Racing B hue" },
+    { "entryId": "01JRACE0000000000000000B2", "domain": "esphome", "title": "Racing B esphome" },
+    { "entryId": "01JRACE0000000000000000B3", "domain": "tuya", "title": "Racing B tuya" },
+    { "entryId": "01JRACE0000000000000000B4", "domain": "met", "title": "Racing B met" },
+    { "entryId": "01JRACE0000000000000000B5", "domain": "wled", "title": "Racing B wled" }
+  ],
+  "entities": [
+    { "entityId": "light.racing_b_one", "platform": "hue", "configEntryId": "01JRACE0000000000000000B1", "deviceId": "racedevB1" },
+    { "entityId": "sensor.racing_b_two", "platform": "esphome", "configEntryId": "01JRACE0000000000000000B2", "deviceId": "racedevB1" },
+    { "entityId": "light.racing_b_three", "platform": "tuya", "configEntryId": "01JRACE0000000000000000B3", "deviceId": null },
+    { "entityId": "weather.racing_b_four", "platform": "met", "configEntryId": "01JRACE0000000000000000B4", "deviceId": null },
+    { "entityId": "light.racing_b_five", "platform": "wled", "configEntryId": "01JRACE0000000000000000B5", "deviceId": "racedevB2" },
+    { "entityId": "light.racing_b_six", "platform": "wled", "configEntryId": "01JRACE0000000000000000B5", "deviceId": "racedevB2" }
+  ],
+  "devices": [
+    { "deviceId": "racedevB1", "configEntries": ["01JRACE0000000000000000B1"], "manufacturer": "Fictional", "model": "Racing B device one" },
+    { "deviceId": "racedevB2", "configEntries": ["01JRACE0000000000000000B5"], "manufacturer": "Fictional", "model": "Racing B device two" }
+  ]
+}

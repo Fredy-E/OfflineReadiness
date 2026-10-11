@@ -1,0 +1,101 @@
+{
+  "version": 1,
+  "minor_version": 5,
+  "key": "core.config_entries",
+  "data": {
+    "entries": [
+      {
+        "created_at": "2026-09-01T10:00:00+00:00",
+        "data": { "host": "192.0.2.10", "access_token": "CANARY_ENTRY_DATA_TOKEN_3b91", "bridge_password": "CANARY_ENTRY_DATA_PASSWORD_77aa" },
+        "discovery_keys": {},
+        "disabled_by": null,
+        "domain": "hue",
+        "entry_id": "01JREG00000000000000000001",
+        "minor_version": 1,
+        "modified_at": "2026-09-02T11:30:00+00:00",
+        "options": { "scan_interval": 30, "options_token": "CANARY_ENTRY_OPTIONS_TOKEN_5520" },
+        "pref_disable_new_entities": false,
+        "pref_disable_polling": false,
+        "source": "user",
+        "subentries": [
+          { "data": { "api_key": "CANARY_SUBENTRY_DATA_KEY_9c4e" }, "subentry_id": "01JREGSUB0000000000000001", "subentry_type": "light", "title": "Fictional subentry", "unique_id": "CANARY_SUBENTRY_UID_4411" }
+        ],
+        "title": "Fictional Hue bridge (registry)",
+        "unique_id": "CANARY_ENTRY_UNIQUE_ID_0f2b",
+        "version": 1
+      },
+      {
+        "created_at": "2026-09-03T08:00:00+00:00",
+        "data": {},
+        "discovery_keys": { "zeroconf": [{ "domain": "esphome", "name": "fictional-node._esphomelib._tcp.local." }] },
+        "disabled_by": null,
+        "domain": "esphome",
+        "entry_id": "01JREG00000000000000000002",
+        "minor_version": 1,
+        "modified_at": "2026-09-03T08:00:00+00:00",
+        "options": {},
+        "pref_disable_new_entities": false,
+        "pref_disable_polling": false,
+        "source": "zeroconf",
+        "subentries": [],
+        "title": "Fictional ESPHome node (registry)",
+        "unique_id": "CANARY_ESPHOME_UID_1122",
+        "version": 1
+      },
+      {
+        "created_at": "2026-09-04T09:15:00+00:00",
+        "data": { "user_code": "CANARY_TUYA_USER_CODE_a310", "username": "fictional@example.invalid" },
+        "discovery_keys": {},
+        "disabled_by": null,
+        "domain": "tuya",
+        "entry_id": "01JREG00000000000000000003",
+        "minor_version": 1,
+        "modified_at": "2026-09-04T09:15:00+00:00",
+        "options": { "country_code": "00" },
+        "pref_disable_new_entities": false,
+        "pref_disable_polling": false,
+        "source": "user",
+        "subentries": [],
+        "title": "Fictional Tuya account (registry)",
+        "unique_id": "CANARY_TUYA_UID_3344",
+        "version": 1
+      },
+      {
+        "created_at": "2026-09-05T12:45:00+00:00",
+        "data": { "broker": "192.0.2.20", "username": "fictional_mqtt", "password": "CANARY_MQTT_PASSWORD_5d2f" },
+        "discovery_keys": {},
+        "disabled_by": null,
+        "domain": "mqtt",
+        "entry_id": "01JREG00000000000000000004",
+        "minor_version": 1,
+        "modified_at": "2026-09-05T12:45:00+00:00",
+        "options": { "birth_message": { "topic": "fictional/status", "payload": "online" } },
+        "pref_disable_new_entities": false,
+        "pref_disable_polling": false,
+        "source": "user",
+        "subentries": [],
+        "title": "Fictional MQTT broker link",
+        "unique_id": "CANARY_MQTT_UID_5566",
+        "version": 1
+      },
+      {
+        "created_at": "2026-09-06T07:20:00+00:00",
+        "data": { "api_key": "CANARY_CUSTOM_KEY_b7e3" },
+        "discovery_keys": {},
+        "disabled_by": "user",
+        "domain": "my_custom_thing",
+        "entry_id": "01JREG00000000000000000005",
+        "minor_version": 1,
+        "modified_at": "2026-09-06T07:20:00+00:00",
+        "options": {},
+        "pref_disable_new_entities": true,
+        "pref_disable_polling": true,
+        "source": "user",
+        "subentries": [],
+        "title": "Fictional custom integration (registry)",
+        "unique_id": null,
+        "version": 1
+      }
+    ]
+  }
+}

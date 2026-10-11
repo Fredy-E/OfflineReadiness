@@ -1,0 +1,14 @@
+{
+  "name": "offline-readiness",
+  "version": "0.1.0",
+  "private": true,
+  "license": "MIT",
+  "description": "Read-only Home Assistant dependency evidence report from selected registry metadata. Offline single-page tool; no server, no network, no install.",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "test": "node --test tests/core.test.cjs",
+    "test:browser": "node tests/browser.cjs"
+  }
+}

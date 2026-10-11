@@ -1,0 +1,71 @@
+{
+  "schema": "offline-readiness.snapshot/1",
+  "haVersion": "2026.9.2-fictional",
+  "entries": [
+    {
+      "entryId": "01JLONG000000000000000001",
+      "domain": "hue",
+      "title": "Fictional long display name xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+    },
+    {
+      "entryId": "01JLONG000000000000000002",
+      "domain": "tuya",
+      "title": "Fictional long entry title ttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt"
+    },
+    {
+      "entryId": "01JLONG000000000000000003",
+      "domain": "my_custom_thing",
+      "title": "Long-strings fixture"
+    }
+  ],
+  "entities": [
+    {
+      "entityId": "light.xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "platform": "hue",
+      "configEntryId": "01JLONG000000000000000001",
+      "deviceId": "longdev0001",
+      "originalName": "Fictional long entity name eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+    },
+    {
+      "entityId": "sensor.long_yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",
+      "platform": "tuya",
+      "configEntryId": "01JLONG000000000000000002",
+      "deviceId": null,
+      "originalName": "Long sensor name kept short"
+    },
+    {
+      "entityId": "sensor.long_unlinked",
+      "platform": "esphome",
+      "configEntryId": null,
+      "deviceId": null,
+      "originalName": "Unlinked long fixture entity"
+    },
+    {
+      "entityId": "media_player.long_mismatch",
+      "platform": "spotify",
+      "configEntryId": "01JLONG000000000000000002",
+      "deviceId": "longdev0002",
+      "name": "Fictional long entity name eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+    }
+  ],
+  "devices": [
+    {
+      "deviceId": "longdev0001",
+      "configEntries": [
+        "01JLONG000000000000000001"
+      ],
+      "manufacturer": "Fictional manufacturer mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm",
+      "model": "Fictional model oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo",
+      "name": "Fictional long device name ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+      "swVersion": "2026.9.0-fictional"
+    },
+    {
+      "deviceId": "longdev0002",
+      "configEntries": [
+        "01JLONG000000000000000002"
+      ],
+      "manufacturer": "Fictional",
+      "model": "Long model"
+    }
+  ]
+}

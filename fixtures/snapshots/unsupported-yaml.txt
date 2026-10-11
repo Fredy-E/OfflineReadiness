@@ -1,0 +1,9 @@
+homeassistant:
+  customize:
+    light.fictional_hall:
+      friendly_name: CANARY_YAML_VALUE_77aa
+automation:
+  - alias: Fictional YAML automation
+    trigger:
+      - platform: state
+        entity_id: light.fictional_hall

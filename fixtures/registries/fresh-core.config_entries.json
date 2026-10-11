@@ -1,0 +1,27 @@
+{
+  "version": 1,
+  "minor_version": 5,
+  "key": "core.config_entries",
+  "data": {
+    "entries": [
+      {
+        "created_at": "2026-10-01T08:00:00+00:00",
+        "data": { "host": "192.0.2.44", "access_token": "CANARY_FRESH_ENTRY_TOKEN_0001" },
+        "discovery_keys": {},
+        "disabled_by": null,
+        "domain": "hue",
+        "entry_id": "01JFRESH000000000000000001",
+        "minor_version": 1,
+        "modified_at": "2026-10-01T08:00:00+00:00",
+        "options": {},
+        "pref_disable_new_entities": false,
+        "pref_disable_polling": false,
+        "source": "user",
+        "subentries": {},
+        "title": "Fictional fresh-home bridge",
+        "unique_id": "fictional-fresh-bridge",
+        "version": 1
+      }
+    ]
+  }
+}
