@@ -1,6 +1,6 @@
 {
   "name": "offline-readiness",
-  "version": "0.1.0",
+  "version": "0.2.0-preview.1",
   "private": true,
   "license": "MIT",
   "description": "Read-only Home Assistant dependency evidence report from selected registry metadata. Offline single-page tool; no server, no network, no install.",
@@ -8,7 +8,9 @@
     "node": ">=22"
   },
   "scripts": {
-    "test": "node --test tests/core.test.cjs",
-    "test:browser": "node tests/browser.cjs"
+    "test": "node --test tests/core.test.cjs tests/cdp-helper.test.cjs",
+    "test:browser": "node tests/browser.cjs",
+    "verify": "node --test tests/core.test.cjs tests/cdp-helper.test.cjs && node tests/browser.cjs && node tests/ui-workbench.cjs",
+    "test:ui": "node tests/ui-workbench.cjs"
   }
 }

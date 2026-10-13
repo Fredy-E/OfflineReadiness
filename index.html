@@ -3,45 +3,62 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="color-scheme" content="dark">
+<meta name="color-scheme" content="light dark">
 <meta name="description" content="OfflineReadiness — read-only Home Assistant dependency evidence report from selected registry metadata. No server, no network, no telemetry.">
 <title>OfflineReadiness — experimental concept prototype</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-<header class="site-head">
-  <div>
-    <p class="eyebrow">Offline evidence tool</p>
+<header class="site-head workbench-masthead">
+  <div class="masthead-main">
+    <p class="eyebrow">Offline evidence tool · Fredy workbench family</p>
     <h1>OfflineReadiness</h1>
-    <p id="prototype-notice" class="tagline" role="note"><strong>Experimental concept prototype — idea exploration only.</strong> This is a work-in-progress demo, not a finished or production-ready product.</p>
+    <p id="prototype-notice" class="tagline notice" role="note"><strong>Experimental concept prototype — idea exploration only.</strong> This is a work-in-progress demo, not a finished or production-ready product.</p>
     <p class="tagline">Map your Home Assistant registry exports to dated integration classification evidence — a read-only dependency board, not an offline-safe certification.</p>
   </div>
-  <div class="head-side">
+  <div class="head-side masthead-status" aria-label="Prototype status">
     <span class="badge" title="This page makes no network requests."><span class="dot" aria-hidden="true"></span>Offline · no network</span>
     <span class="badge warn-badge">Evidence report · no score</span>
+    <span class="badge state-badge">Experimental · local only</span>
   </div>
 </header>
 
-<main class="layout">
+<main class="layout workbench" data-ui-revision="portfolio-preview-1">
 
   <!-- 01 · Import ---------------------------------------------------------- -->
-  <section class="panel" id="import-panel" aria-labelledby="import-h">
+  <section class="panel import-panel" id="import-panel" aria-labelledby="import-h">
     <h2 id="import-h"><span class="step">01</span>Import registry metadata</h2>
-    <div class="field-row">
-      <input class="sr-only" type="file" id="file-input" data-testid="file-input" accept=".json,.txt,application/json,text/plain" multiple>
-      <label class="btn" id="file-label" for="file-input">Choose JSON files…</label>
-      <button type="button" class="btn primary" id="btn-load-sample" data-testid="load-sample">Load fictional sample</button>
-      <span class="hint" id="source-kind" data-testid="source-kind">No import yet.</span>
+    <div class="import-grid">
+      <div class="import-card">
+        <h3>Snapshot or registry bundle</h3>
+        <p class="hint">Choose the three <code>.storage</code> exports together, or one normalized snapshot JSON.</p>
+        <div class="field-row">
+          <input class="sr-only" type="file" id="file-input" data-testid="file-input" accept=".json,.txt,application/json,text/plain" multiple>
+          <label class="btn" id="file-label" for="file-input">Choose JSON files…</label>
+          <span class="hint" id="source-kind" data-testid="source-kind">No import yet.</span>
+        </div>
+      </div>
+      <div class="import-card">
+        <h3>Fictional sample</h3>
+        <p class="hint">Twelve-card synthetic demo — not from a real home. Good for trying filters and exports.</p>
+        <div class="field-row">
+          <button type="button" class="btn primary" id="btn-load-sample" data-testid="load-sample">Load fictional sample</button>
+        </div>
+        <p class="hint" id="sample-note">The built-in sample is fictional, synthetic demo data — not from a real home. Files never leave this machine; nothing is stored in the browser.</p>
+      </div>
+      <div class="import-card">
+        <h3>After import</h3>
+        <p class="hint">Sections 02–05 appear below: dependency board, reference issues, dated evidence, and the redacted report download.</p>
+        <p class="status" id="status-line" data-testid="status-line" role="status" aria-live="polite">Load the fictional sample, or choose the .storage exports (core.config_entries, core.entity_registry, core.device_registry) in one multi-file selection, or a normalized snapshot JSON.</p>
+        <p class="error" id="error-line" data-testid="error-line" role="alert" hidden></p>
+      </div>
     </div>
-    <p class="status" id="status-line" data-testid="status-line" role="status" aria-live="polite">Load the fictional sample, or choose the .storage exports (core.config_entries, core.entity_registry, core.device_registry) in one multi-file selection, or a normalized snapshot JSON.</p>
-    <p class="error" id="error-line" data-testid="error-line" role="alert" hidden></p>
-    <p class="hint" id="sample-note">The built-in sample is fictional, synthetic demo data — not from a real home. Files never leave this machine; nothing is stored in the browser.</p>
   </section>
 
   <!-- 02 · Board ----------------------------------------------------------- -->
-  <section class="panel" id="board-panel" aria-labelledby="board-h" hidden>
+  <section class="panel board-panel" id="board-panel" aria-labelledby="board-h" hidden>
     <h2 id="board-h"><span class="step">02</span>Dependency board</h2>
+    <p class="hint board-lede">Entry cards group entities and devices by config entry. Category chips, search and the warnings-only toggle filter entry groups; graph-level cards stay visible in every view.</p>
 
     <div class="stats" id="stats" data-testid="stats" aria-label="Record counts">
       <div class="stat"><span class="stat-num" id="stat-entries">0</span><span class="stat-label">Entries</span></div>
@@ -71,7 +88,13 @@
     <p class="meta" id="filter-status" data-testid="filter-status" aria-live="polite"></p>
 
     <div class="workspace">
-      <div class="board" id="board" data-testid="board" aria-label="Dependency board"></div>
+      <div class="board-wrap">
+        <div class="board" id="board" data-testid="board" aria-label="Dependency board"></div>
+        <div class="empty-state" id="board-empty" hidden>
+          <h3>No entry groups match the current filters</h3>
+          <p>Nothing in this import matches that combination. Clearing the search, choosing <strong>All</strong>, or turning off the warnings-only toggle restores the board — the import itself is unchanged.</p>
+        </div>
+      </div>
       <aside class="detail" id="detail-pane" data-testid="detail-pane" aria-labelledby="detail-title" hidden>
         <div class="detail-head">
           <h3 id="detail-title">Details</h3>
@@ -84,10 +107,15 @@
   </section>
 
   <!-- 03 · Issues ---------------------------------------------------------- -->
-  <section class="panel" id="issues-panel" aria-labelledby="issues-h" hidden>
+  <section class="panel evidence-panel" id="issues-panel" aria-labelledby="issues-h" hidden>
     <h2 id="issues-h"><span class="step">03</span>Reference &amp; import issues</h2>
+    <p class="hint">Orphan, ambiguous, duplicate and rejected records found while building the board. Warnings need attention; info rows explain graph-level cards.</p>
     <p class="meta" id="issues-count" data-testid="issues-count"></p>
-    <div class="table-scroll">
+    <div class="empty-state" id="issues-empty" hidden>
+      <h3>No issues recorded</h3>
+      <p>This import joined cleanly — every reference resolved and no records were rejected.</p>
+    </div>
+    <div class="table-scroll" tabindex="0" role="region" aria-label="Reference and import issues table — scroll horizontally with arrow keys">
       <table class="issues-table">
         <caption>Orphan, ambiguous, duplicate and rejected records found while building the board. Detail text never includes discarded credential fields.</caption>
         <thead>
@@ -99,10 +127,11 @@
   </section>
 
   <!-- 04 · Evidence -------------------------------------------------------- -->
-  <section class="panel" id="evidence-panel" aria-labelledby="evidence-h" hidden>
+  <section class="panel evidence-panel" id="evidence-panel" aria-labelledby="evidence-h" hidden>
     <h2 id="evidence-h"><span class="step">04</span>Classification evidence</h2>
+    <p class="hint">Dated manifest evidence for every domain in this import — the declaration, not a runtime measurement. Bundled evidence is dated <strong>2026-10-11</strong> (home-assistant/core tag 2026.10.1); older than 180 days is flagged stale.</p>
     <p class="meta" id="evidence-count" data-testid="evidence-count"></p>
-    <div class="table-scroll">
+    <div class="table-scroll" tabindex="0" role="region" aria-label="Classification evidence table — scroll horizontally with arrow keys">
       <table class="evidence-table">
         <caption>Dated, cited evidence for every domain used by this import. Manifest iot_class describes the integration’s declared communication model — not verified device runtime behavior.</caption>
         <thead>
@@ -114,8 +143,9 @@
   </section>
 
   <!-- 05 · Download -------------------------------------------------------- -->
-  <section class="panel" id="download-panel" aria-labelledby="download-h" hidden>
+  <section class="panel download-panel" id="download-panel" aria-labelledby="download-h" hidden>
     <h2 id="download-h"><span class="step">05</span>Download the report</h2>
+    <p class="hint">Redacted by default. The opt-in adds original names and identifiers — never secrets. Manufacturer/model and known source enums stay as product metadata; review before sharing.</p>
     <div class="field-row">
       <label class="channel" for="optin-identifiers"><input type="checkbox" id="optin-identifiers" data-testid="optin-identifiers"> <span>Include original names and identifiers</span></label>
       <button type="button" class="btn primary" id="btn-download-json" data-testid="download-json">Download JSON report</button>
@@ -124,8 +154,10 @@
     <p class="hint" id="download-note">Reports are redacted by default: names and identifiers are ordinalized (Entry C01, Entity E01, Device D01) and arbitrary source labels are omitted. Known Home Assistant source enums (user, discovery, …) and device manufacturer/model remain as product/acquisition metadata — review them before sharing. The opt-in includes the original names and identifiers from the normalized state — never secrets: credential-bearing config entry data/options and device connection/serial/URL fields are discarded at import and can never appear in any report.</p>
   </section>
 
-  <details class="about">
+  <details class="about reference" open>
     <summary>Supported inputs, limits &amp; honest limitations</summary>
+    <div class="about-grid">
+    <div>
     <h3>Supported input</h3>
     <ul>
       <li><strong>Normalized snapshot</strong> — one JSON file with schema <code>offline-readiness.snapshot/1</code>: <code>haVersion</code> plus allowlisted <code>entries</code>, <code>entities</code> and <code>devices</code> arrays (see <code>docs/snapshot-contract.md</code>).</li>
@@ -144,6 +176,8 @@
       <li>Display strings are capped at 200 characters (truncations are counted); devices keep at most 32 config-entry references; at most 500 issues are listed while totals stay complete.</li>
       <li>Bundled classification evidence is dated <strong>2026-10-11</strong> (home-assistant/core tag 2026.10.1); evidence older than 180 days is flagged stale.</li>
     </ul>
+    </div>
+    <div>
     <h3>Honest limitations</h3>
     <ul>
       <li>This is a dependency <em>evidence</em> report, not a whole-house offline-safe certification, and there is no aggregate score.</li>
@@ -158,6 +192,8 @@
       <li>Physical device behavior and runtime offline operation were not tested.</li>
       <li>Licensed under MIT; see the LICENSE file included with this application.</li>
     </ul>
+    </div>
+    </div>
   </details>
 
 </main>

@@ -112,7 +112,7 @@ Zero-dependency unit suite plus a real-Chrome browser suite (no Playwright, no
 installs — a small CDP helper drives an owned headless Chrome):
 
 ```bash
-node --test tests/core.test.cjs   # 43 tests (303 assertions)
+node --test tests/core.test.cjs tests/cdp-helper.test.cjs   # 48 tests (43 core + 5 helper)
 node tests/browser.cjs            # 14 cases (93 assertions)
 ```
 
@@ -148,3 +148,14 @@ Exact results, evidence paths and honest limitations:
 ## License
 
 MIT — see [`LICENSE`](LICENSE).
+
+## Verify (default)
+
+Full default verification (unit + helper + real-Chrome browser + workbench UI regression):
+
+```sh
+npm run verify
+# = node --test tests/core.test.cjs tests/cdp-helper.test.cjs && node tests/browser.cjs && node tests/ui-workbench.cjs
+```
+
+Browser suites need Node with built-in `WebSocket` (verified on Node 26.7.0) and local Chrome. Artifacts default to `tests/evidence/`; set `OFFLINE_READINESS_EVIDENCE_DIR` to redirect.

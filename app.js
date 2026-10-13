@@ -222,6 +222,10 @@
     if (showUnlinked) filterBits.push(unlinked.length + ' unlinked entit' + (unlinked.length === 1 ? 'y' : 'ies') + ' shown.');
     if (showUnattributed) filterBits.push(unattributed.length + ' unattributed device' + (unattributed.length === 1 ? '' : 's') + ' shown.');
     $('filter-status').textContent = filterBits.join(' ');
+    var empty = $('board-empty');
+    if (empty) empty.hidden = board.children.length !== 0;
+    var issuesEmpty = $('issues-empty');
+    if (issuesEmpty) issuesEmpty.hidden = view.built.issues.length !== 0;
     if (view.detailRef) renderDetail(view.detailRef, false);
   }
 
@@ -328,7 +332,10 @@
       }
       body.appendChild(list);
       pane.hidden = false;
-      if (scrollTo) pane.scrollIntoView({ block: 'nearest' });
+      if (scrollTo) {
+        $('btn-detail-close').focus();
+        pane.scrollIntoView({ block: 'nearest' });
+      }
       return;
     }
 
@@ -405,7 +412,10 @@
     body.appendChild(issues || el('p', { className: 'card-meta', text: 'No issues recorded for this entry.' }));
 
     pane.hidden = false;
-    if (scrollTo) pane.scrollIntoView({ block: 'nearest' });
+    if (scrollTo) {
+      $('btn-detail-close').focus();
+      pane.scrollIntoView({ block: 'nearest' });
+    }
   }
 
   function closeDetail() {
